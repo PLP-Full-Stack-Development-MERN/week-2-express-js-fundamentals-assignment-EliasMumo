@@ -1,94 +1,63 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/-gq_FNSX)
-**Week 2: Express.js Fundamentals Assignment**
+# Express.js Assignment
 
-**Objective:**
+## Setup Instructions
 
-- Apply Express.js concepts learned throughout the week.
-- Develop hands-on experience with creating routes, middleware, and API endpoints.
-- Understand and implement RESTful APIs.
+Follow these steps to set up and run the project:
 
-**Instructions:**
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/your-repo/express-assignment.git
+   cd express-assignment
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the server:
+   ```sh
+   npm start
+   ```
+   The server will start on the defined `PORT` (default: 3000).
 
-1. **Setup Express.js Project:**
+## Environment Variables
 
-   - Install Node.js using NVM.
-   - Create a new project folder named `express-assignment`.
-   - Initialize a Node.js project using:
-     ```sh
-     npm init -y
-     ```
-   - Install necessary dependencies:
-     ```sh
-     npm install express dotenv
-     ```
+| Variable | Purpose |
+|----------|---------|
+| PORT     | Defines the port the server listens on (default: 3000). |
 
-2. **Project Structure:**
+## Folder Structure
 
-   - Organize your project files with a clear folder structure:
-     ```
-     express-assignment/
-     │-- routes/
-     │    ├── userRoutes.js
-     │    ├── productRoutes.js
-     │-- middleware/
-     │    ├── logger.js
-     │-- controllers/
-     │    ├── userController.js
-     │    ├── productController.js
-     │-- index.js
-     │-- package.json
-     │-- README.md
-     │-- .env
-     ```
+- **routes/**: Defines route handlers for different API endpoints.
+- **controllers/**: Contains logic for handling requests and responses.
+- **middleware/**: Includes custom middleware like logging and error handling.
+- **models/**: (If using a database) Defines data models.
+- **config/**: Stores configuration settings such as environment variables.
 
-3. **Create Routes:**
+## Middleware
 
-   - Create `userRoutes.js` and `productRoutes.js` inside the `routes/` folder.
-   - Implement RESTful routes for users and products (GET, POST, PUT, DELETE).
-   - Ensure proper usage of route parameters and query strings.
+### Logger Middleware
+A custom middleware that logs request details:
+```js
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+```
 
-4. **Implement Middleware:**
+### Global Error Handling
+Catches and handles errors consistently:
+```js
+app.use((err, req, res, next) => {
+  res.status(500).json({ message: err.message });
+});
+```
 
-   - Create a custom middleware function in `middleware/logger.js` to log request details (method, URL, timestamp).
-   - Apply middleware globally to all routes.
+## Testing Endpoints
 
-5. **Develop Controllers:**
+You can test the API using **Postman** or **cURL**.
 
-   - Create controller functions in `controllers/userController.js` and `controllers/productController.js`.
-   - Implement business logic to handle requests and responses.
-
-6. **Environment Variables:**
-
-   - Use `dotenv` to manage environment variables.
-   - Define variables such as `PORT` in the `.env` file and access them inside the application.
-
-7. **Error Handling:**
-
-   - Implement a global error-handling middleware to catch and respond to errors gracefully.
-
-8. **Testing:**
-
-   - Run the server using:
-     ```sh
-     node index.js
-     ```
-   - Test API endpoints using Postman or cURL.
-   - Verify routes, middleware functionality, and error handling.
-
-9. **Documentation:**
-
-   - Add a `README.md` with instructions on setting up and running the project.
-   - Document available API endpoints with descriptions and example requests.
-
-10. **Submission:**
-
-   - Push your code to your GitHub repository.
-
-**Evaluation Criteria:**
-
-- Correct implementation of Express routes and middleware.
-- Proper error handling and logging.
-- Clean project structure and code organization.
-- Detailed documentation with clear instructions.
-- Successful testing of all endpoints.
+Example using cURL:
+```sh
+curl -X GET http://localhost:3000/api/users
+```
 
